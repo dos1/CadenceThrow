@@ -165,7 +165,7 @@ struct Level {
 
 /*! \brief Enum of menu states in Menu and Pause game states. */
 enum menustate_enum {
-	MENUSTATE_MAIN,
+	MENUSTATE_GAME,
 	MENUSTATE_OPTIONS,
 	MENUSTATE_CONTROLS,
 	MENUSTATE_VIDEO,
@@ -259,17 +259,30 @@ struct Map {
 
 /*! \brief Resources used by Intro state. */
 struct Intro {
-		int position; /*!< Position of the page. */
-		int page; /*!< Current page number. */
-		bool in_animation; /*!< Animation as in page transition animation. */
-		float anim; /*!< Counter used for spritesheet animations. */
-		ALLEGRO_BITMAP *table; /*!< Background paper bitmap, two pages long. */
-		ALLEGRO_BITMAP *table_bitmap; /*!< Unscaled background paper bitmap. */
-		ALLEGRO_BITMAP *frame; /*!< Bitmap with frame around the screen. */
-		ALLEGRO_BITMAP *animsprites[5]; /*!< Array with spritesheet bitmaps. */
-		ALLEGRO_FONT *font; /*!< Font used for text. */
+		ALLEGRO_BITMAP *space; /*!< Background paper bitmap, two pages long. */
+		ALLEGRO_BITMAP *cadence; /*!< Unscaled background paper bitmap. */
+		int cadencepos;
+		int range;
 		ALLEGRO_SAMPLE *sample; /*!< Background music sample. */
 		ALLEGRO_SAMPLE_INSTANCE *music; /*!< Sample instance with background music. */
+
+		ALLEGRO_SAMPLE *sample2; /*!< Background music sample. */
+		ALLEGRO_SAMPLE_INSTANCE *music2; /*!< Sample instance with background music. */
+
+		ALLEGRO_SAMPLE *sample3; /*!< Background music sample. */
+		ALLEGRO_SAMPLE_INSTANCE *music3; /*!< Sample instance with background music. */
+
+		ALLEGRO_SAMPLE *sample4; /*!< Background music sample. */
+		ALLEGRO_SAMPLE_INSTANCE *music4; /*!< Sample instance with background music. */
+
+		ALLEGRO_SAMPLE *sample5; /*!< Background music sample. */
+		ALLEGRO_SAMPLE_INSTANCE *music5; /*!< Sample instance with background music. */
+
+		ALLEGRO_SAMPLE *samplewin; /*!< Background music sample. */
+		ALLEGRO_SAMPLE_INSTANCE *musicwin; /*!< Sample instance with background music. */
+		ALLEGRO_SAMPLE *samplelost; /*!< Background music sample. */
+		ALLEGRO_SAMPLE_INSTANCE *musiclost; /*!< Sample instance with background music. */
+
 		ALLEGRO_AUDIO_STREAM *audiostream; /*!< Audiostream used for Celestia voice. */
 };
 

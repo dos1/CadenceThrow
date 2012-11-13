@@ -89,6 +89,9 @@ void Pause_Load(struct Game* game) {
 }
 
 void Pause_Draw(struct Game* game) {
+
+
+
 	game->gamestate=game->loadstate;
 	game->loadstate=GAMESTATE_PAUSE;
 	DrawGameState(game);
@@ -96,9 +99,20 @@ void Pause_Draw(struct Game* game) {
 	game->gamestate=GAMESTATE_PAUSE;
 	//al_draw_tinted_bitmap(game->pause.bitmap,al_map_rgba_f(1,1,1,0.75),0,0,0);
 	//al_draw_bitmap(game->pause.bitmap);
-	al_draw_text_with_shadow(game->menu.font_title, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.1, ALLEGRO_ALIGN_CENTRE, "Cadence Throw");
-	al_draw_text_with_shadow(game->menu.font_subtitle, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.275, ALLEGRO_ALIGN_CENTRE, "Throwing Wifes is Magic");
+
+	al_draw_filled_rectangle(0, 0, game->viewportWidth, game->viewportHeight, al_map_rgba_f(0,0,0,0.3));
+
+	al_draw_text_with_shadow(game->menu.font_title, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.05, ALLEGRO_ALIGN_CENTRE, "Cadence Throw");
+	al_draw_text_with_shadow(game->menu.font_subtitle, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.225, ALLEGRO_ALIGN_CENTRE, "Throwing Wifes is Magic");
 	DrawMenuState(game);
+
+//	al_draw_filled_rectangle(0, game->viewportHeight*0.8, game->viewportWidth, game->viewportHeight, al_map_rgba_f(0,0,0,0.3));
+
+	al_draw_text_with_shadow(game->menu.font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.82, ALLEGRO_ALIGN_CENTRE, "Your task is to save Spike by throwing your wife.");
+	al_draw_text_with_shadow(game->menu.font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.9, ALLEGRO_ALIGN_CENTRE, "Adjust throw power with Space button. But be careful!");
+
+
+	if (al_get_sample_instance_position(game->intro.music)<100000) al_set_sample_instance_position(game->intro.music, 150000); // UGLY AS FUUUUUUUUUUUUCK
 }
 
 void Pause_Unload_Real(struct Game* game) {

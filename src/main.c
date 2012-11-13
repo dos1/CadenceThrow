@@ -334,12 +334,12 @@ ALLEGRO_BITMAP* LoadScaledBitmap(char* filename, int width, int height) {
 	al_clear_to_color(al_map_rgba(0,0,0,0));
 	char* origfn = GetDataFilePath(filename);
 	void GenerateBitmap() {
-		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+		//al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
 
 		source = al_load_bitmap( origfn );
-		al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
-
-		ScaleBitmap(source, width, height);
+		//al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
+		al_draw_scaled_bitmap(source, 0, 0, al_get_bitmap_width(source), al_get_bitmap_height(source), 0, 0, width, height, 0);
+		//ScaleBitmap(source, width, height);
 		/*al_save_bitmap(cachefn, target);
 		PrintConsole(game, "Cache bitmap %s generated.", filename);*/
 		al_destroy_bitmap(source);
@@ -430,7 +430,7 @@ int main(int argc, char **argv){
 
 	struct Game game;
 
-	game.fullscreen = atoi(GetConfigOptionDefault("SuperDerpy", "fullscreen", "1"));
+	game.fullscreen = atoi(GetConfigOptionDefault("SuperDerpy", "fullscreen", "0"));
 	game.music = atoi(GetConfigOptionDefault("SuperDerpy", "music", "7"));
 	game.voice = atoi(GetConfigOptionDefault("SuperDerpy", "voice", "10"));
 	game.fx = atoi(GetConfigOptionDefault("SuperDerpy", "fx", "10"));
@@ -526,7 +526,8 @@ int main(int argc, char **argv){
 	al_attach_mixer_to_mixer(game.audio.voice, game.audio.mixer);
 	al_set_mixer_gain(game.audio.fx, game.fx/10.0);
 	al_set_mixer_gain(game.audio.music, game.music/10.0);
-	al_set_mixer_gain(game.audio.voice, game.voice/10.0);
+	//al_set_mixer_gain(game.audio.voice, game.voice/10.0);
+	al_set_mixer_gain(game.audio.voice, 0);
 
 	al_register_event_source(game.event_queue, al_get_display_event_source(game.display));
 	al_register_event_source(game.event_queue, al_get_keyboard_event_source());

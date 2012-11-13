@@ -30,11 +30,11 @@ void draw(struct Game *game, ALLEGRO_BITMAP *bitmap) {
 }
 
 void Progress(struct Game *game, float p) {
-	if (p<0.25) {
+	if (p<0.15) {
 		draw(game,game->loading.image1);
-	} else if (p<0.5) {
+	} else if (p<0.4) {
 		draw(game,game->loading.image2);
-	} else if (p<0.75) {
+	} else if (p<0.65) {
 		draw(game,game->loading.image3);
 	} else {
 		draw(game,game->loading.image4);
@@ -74,7 +74,7 @@ void Loading_Draw(struct Game *game) {
 		}
 	}
 	al_clear_to_color(al_map_rgb(0,0,0));*/
-	al_draw_bitmap(game->loading.loading_bitmap,0,0,0);
+	al_draw_bitmap(game->loading.image4,0,0,0);
 	DrawConsole(game);
 	al_flip_display();
 	LoadGameState(game);

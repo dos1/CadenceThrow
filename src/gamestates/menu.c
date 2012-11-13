@@ -28,41 +28,41 @@ void DrawMenuState(struct Game *game) {
 	char* text = malloc(255*sizeof(char));
 	struct ALLEGRO_COLOR color;
 	switch (game->menu.menustate) {
-		case MENUSTATE_MAIN:
+		case MENUSTATE_GAME:
 			font = game->menu.font; if (game->menu.selected==0) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, "Start game");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.4, ALLEGRO_ALIGN_CENTRE, "Easy");
 			font = game->menu.font; if (game->menu.selected==1) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, "Options");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, "Medium");
 			font = game->menu.font; if (game->menu.selected==2) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, "About");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, "Hard");
 			font = game->menu.font; if (game->menu.selected==3) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.8, ALLEGRO_ALIGN_CENTRE, "Exit");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, "Back");
 			break;
 		case MENUSTATE_OPTIONS:
 			font = game->menu.font; if (game->menu.selected==0) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, "Control settings");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.4, ALLEGRO_ALIGN_CENTRE, "Music: enabled");
 			font = game->menu.font; if (game->menu.selected==1) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, "Video settings");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, "Fullscreen: no");
 			font = game->menu.font; if (game->menu.selected==2) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, "Audio settings");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, "Restart game");
 			font = game->menu.font; if (game->menu.selected==3) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.8, ALLEGRO_ALIGN_CENTRE, "Back");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, "Back");
 			break;
 		case MENUSTATE_AUDIO:
 			font = game->menu.font; if (game->menu.selected==0) font = game->menu.font_selected;
 			if (game->music) sprintf(text, "Music volume: %d0%%", game->music);
 			else sprintf(text, "Music disabled");
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, text);
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.4, ALLEGRO_ALIGN_CENTRE, text);
 			font = game->menu.font; if (game->menu.selected==1) font = game->menu.font_selected;
 			if (game->fx) sprintf(text, "Effects volume: %d0%%", game->fx);
 			else sprintf(text, "Effects disabled");
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, text);
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, text);
 			font = game->menu.font; if (game->menu.selected==2) font = game->menu.font_selected;
 			if (game->voice) sprintf(text, "Voice volume: %d0%%", game->voice);
 			else sprintf(text, "Voice disabled");
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, text);
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, text);
 			font = game->menu.font; if (game->menu.selected==3) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.8, ALLEGRO_ALIGN_CENTRE, "Back");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, "Back");
 			break;
 		case MENUSTATE_VIDEO:
 			if (game->menu.options.fullscreen) {
@@ -74,28 +74,28 @@ void DrawMenuState(struct Game *game) {
 				color = al_map_rgba(255,255,255,255);
 			}
 			font = game->menu.font; if (game->menu.selected==0) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, text);
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.4, ALLEGRO_ALIGN_CENTRE, text);
 			font = game->menu.font; if (game->menu.selected==1) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, color, game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, "Resolution: 800x500");
+			al_draw_text_with_shadow(font, color, game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, "Resolution: 800x500");
 			font = game->menu.font; if (game->menu.selected==2) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, "FPS: 60");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, "FPS: 60");
 			font = game->menu.font; if (game->menu.selected==3) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.8, ALLEGRO_ALIGN_CENTRE, "Back");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, "Back");
 			break;
 		case MENUSTATE_PAUSE:
 			font = game->menu.font; if (game->menu.selected==0) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, "Resume game");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.4, ALLEGRO_ALIGN_CENTRE, "Start game");
 			font = game->menu.font; if (game->menu.selected==1) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, "Return to map");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, "Options");
 			font = game->menu.font; if (game->menu.selected==2) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, "Options");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, "About");
 			font = game->menu.font; if (game->menu.selected==3) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.8, ALLEGRO_ALIGN_CENTRE, "Exit");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.7, ALLEGRO_ALIGN_CENTRE, "Exit");
 			break;
 		default:
 			game->menu.selected=0;
 			font = game->menu.font; if (game->menu.selected==0) font = game->menu.font_selected;
-			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.5, ALLEGRO_ALIGN_CENTRE, "Not implemented yet");
+			al_draw_text_with_shadow(font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.4, ALLEGRO_ALIGN_CENTRE, "Not implemented yet");
 			break;
 	}
 	free(text);
@@ -204,7 +204,7 @@ void Menu_Unload(struct Game *game) {
 
 void Menu_Load(struct Game *game) {
 	//if (!game->menu.loaded) return;
-	ChangeMenuState(game,MENUSTATE_MAIN);
+	ChangeMenuState(game,MENUSTATE_PAUSE);
 }
 
 int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
@@ -223,25 +223,36 @@ int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 		char *text;
 		al_play_sample_instance(game->menu.click);
 		switch (game->menu.menustate) {
-			case MENUSTATE_MAIN:
+			case MENUSTATE_GAME:
 				switch (game->menu.selected) {
 					case 0:
-						UnloadGameState(game);
-						game->gamestate = GAMESTATE_LOADING;
-						game->loadstate = GAMESTATE_INTRO;
+						PrintConsole(game,"Game resumed.");
+						al_destroy_bitmap(game->pause.bitmap);
+						game->pause.bitmap = NULL;
+						ResumeGameState(game);
+						game->gamestate = game->loadstate;
+						game->intro.range = 20;
 						break;
 					case 1:
-						ChangeMenuState(game,MENUSTATE_OPTIONS);
+						PrintConsole(game,"Game resumed.");
+						al_destroy_bitmap(game->pause.bitmap);
+						game->pause.bitmap = NULL;
+						ResumeGameState(game);
+						game->gamestate = game->loadstate;
+						game->intro.range = 12;
 						break;
 					case 2:
-						UnloadGameState(game);
-						game->gamestate = GAMESTATE_LOADING;
-						game->loadstate = GAMESTATE_ABOUT;
+						PrintConsole(game,"Game resumed.");
+						al_destroy_bitmap(game->pause.bitmap);
+						game->pause.bitmap = NULL;
+						ResumeGameState(game);
+						game->gamestate = game->loadstate;
+						game->intro.range = 6;
 						break;
 					case 3:
-						return 1;
+						ChangeMenuState(game,MENUSTATE_PAUSE);
 						break;
-				}
+				};
 				break;
 			case MENUSTATE_AUDIO:
 				text = malloc(255*sizeof(char));
@@ -285,7 +296,7 @@ int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 						ChangeMenuState(game,MENUSTATE_AUDIO);
 						break;
 					case 3:
-						ChangeMenuState(game,MENUSTATE_MAIN);
+						ChangeMenuState(game,MENUSTATE_PAUSE);
 						break;
 					default:
 						break;
@@ -294,20 +305,17 @@ int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 			case MENUSTATE_PAUSE:
 				switch (game->menu.selected){
 					case 0:
-						PrintConsole(game,"Game resumed.");
-						al_destroy_bitmap(game->pause.bitmap);
-						game->pause.bitmap = NULL;
-						ResumeGameState(game);
-						game->gamestate = game->loadstate;
+						ChangeMenuState(game,MENUSTATE_GAME);
+						game->menu.selected = 1;
 						break;
 					case 1:
-						game->gamestate=game->loadstate;
-						UnloadGameState(game);
-						game->gamestate = GAMESTATE_LOADING;
-						game->loadstate = GAMESTATE_MAP;
+						ChangeMenuState(game,MENUSTATE_OPTIONS);
 						break;
 					case 2:
-						ChangeMenuState(game,MENUSTATE_OPTIONS);
+						//game->gamestate=game->loadstate;
+						//UnloadGameState(game);
+						game->gamestate = GAMESTATE_ABOUT;
+						//game->loadstate = GAMESTATE_ABOUT;
 						break;
 					case 3:
 						return 1;
@@ -353,7 +361,7 @@ int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 	} else if (ev->keyboard.keycode==ALLEGRO_KEY_ESCAPE) {
 		switch (game->menu.menustate) {
 			case MENUSTATE_OPTIONS:
-				ChangeMenuState(game,MENUSTATE_MAIN);
+				ChangeMenuState(game,MENUSTATE_PAUSE);
 				break;
 			case MENUSTATE_VIDEO:
 				ChangeMenuState(game,MENUSTATE_OPTIONS);
@@ -363,6 +371,9 @@ int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 				break;
 			case MENUSTATE_CONTROLS:
 				ChangeMenuState(game,MENUSTATE_OPTIONS);
+				break;
+			case MENUSTATE_GAME:
+				ChangeMenuState(game,MENUSTATE_PAUSE);
 				break;
 			case MENUSTATE_PAUSE:
 				PrintConsole(game,"Game resumed.");
