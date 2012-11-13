@@ -130,6 +130,8 @@ struct Level {
 		ALLEGRO_SAMPLE_INSTANCE *musicwin; /*!< Sample instance with background music. */
 		ALLEGRO_SAMPLE *samplelost; /*!< Background music sample. */
 		ALLEGRO_SAMPLE_INSTANCE *musiclost; /*!< Sample instance with background music. */
+		ALLEGRO_SAMPLE *samplecrash; /*!< Background music sample. */
+		ALLEGRO_SAMPLE_INSTANCE *musiccrash; /*!< Sample instance with background music. */
 
 		ALLEGRO_AUDIO_STREAM *audiostream; /*!< Audiostream used for Celestia voice. */
 };

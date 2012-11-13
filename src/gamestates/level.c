@@ -20,6 +20,7 @@
  */
 #include <allegro5/allegro_video.h>
 #include <stdio.h>
+#include <math.h>
 #include "level.h"
 #include "pause.h"
 
@@ -31,9 +32,11 @@ double oldpos;
 int counter = -1;
 int power = -1;
 
+
 bool paused = false;
 
 bool won = false, lost = false;
+bool crashed = false;
 
 bool CheckPos(int id) {
 	if (id>10) return false;
@@ -112,10 +115,21 @@ void Level_Logic(struct Game *game) {
 		}
 		else {
 			int inc = 1;
+			double p = (0.21+((0.79-0.21)*(power/100.0)));
+
 			if (cur==2) {
-				double p = (0.21+((0.79-0.21)*(power/100.0)));
 				PrintConsole(game, "power status: %d, %f, %f", power, p, 0.7-(game->level.range/100.0));
-				if (!((p>=0.7-(game->level.range/100.0)) && p<=0.7)) inc = 2;
+				if (p>0.7) {
+					inc = 2;
+				}
+			}
+			if (cur==1) {
+				if (p<0.7-(game->level.range/100.0)) {
+					lost=true;
+					game->level.cadencepos = 0;
+					al_set_sample_instance_position(game->level.musiclost, 0);
+					al_set_sample_instance_position(game->level.musiccrash, 0);
+				}
 			}
 			NextVideo(game,inc);
 		}
@@ -135,6 +149,7 @@ void Level_Resume(struct Game *game) {
 	lost = false;
 	cur = 0;
 	power = -1;
+	crashed = false;
 	al_stop_sample_instance(game->level.musicwin);
 	al_stop_sample_instance(game->level.musiclost);
 	al_set_sample_instance_playing(game->level.music, false);
@@ -145,15 +160,34 @@ void Level_Resume(struct Game *game) {
 void Level_Draw(struct Game *game) {
 
 	if (won || lost) {
+
+		bool display = !paused;
+
 		if (bitmap) al_draw_scaled_bitmap(bitmap, 0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), 0, 0, game->viewportWidth, game->viewportHeight, 0);
 		char* text;
 		if (won) text = "You won!";
 		if (lost) { text = "You lost!";
-			al_draw_bitmap(game->level.space, 0, 0, 0);
-			al_draw_rotated_bitmap(game->level.cadence, 0, 0, game->viewportWidth*(game->level.cadencepos/1000.0), game->viewportHeight*(1-(game->level.cadencepos/1100.0)), game->level.cadencepos/256.0, 0);
+
+			if ((0.21+((0.79-0.21)*(power/100.0))) > 0.7) {
+				al_draw_bitmap(game->level.space, 0, 0, 0);
+				al_draw_rotated_bitmap(game->level.cadence, 0, 0, game->viewportWidth*(game->level.cadencepos/1000.0), game->viewportHeight*(1-(game->level.cadencepos/1100.0)), game->level.cadencepos/256.0, 0);
+			} else {
+				al_draw_bitmap_region(game->level.fail,game->viewportWidth*(int)fmod(game->level.cadencepos/5,7),game->viewportHeight*(((int)(game->level.cadencepos/5/7))%2),game->viewportWidth, game->viewportHeight,0,0,0);
+				if (game->level.cadencepos/5 >= 13) {
+					game->level.cadencepos = 13*5;
+					if (!crashed) {
+						al_play_sample_instance(game->level.musiclost);
+						al_play_sample_instance(game->level.musiccrash);
+					}
+					crashed = true;
+				} else {
+					display = false;
+				}
+			}
+
 			game->level.cadencepos++;
 		}
-		if (!paused) {
+		if (display) {
 			al_draw_text_with_shadow(game->menu.font_title, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.4, ALLEGRO_ALIGN_CENTRE, text);
 			al_draw_text_with_shadow(game->menu.font_subtitle, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.6, ALLEGRO_ALIGN_CENTRE, "Press Enter to play again!");
 		}
@@ -204,6 +238,7 @@ void Level_Load(struct Game *game) {
 	lost = false;
 	cur = 0;
 	power = -1;
+	crashed = false;
 	al_start_video(videos[cur], game->audio.voice);
 	al_set_sample_instance_position(game->level.music, 0);
 	al_play_sample_instance(game->level.music);
@@ -315,6 +350,16 @@ void Level_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
 	al_attach_sample_instance_to_mixer(game->level.musiclost, game->audio.music);
 	al_set_sample_instance_gain(game->level.musiclost, 0.75);
 	al_set_sample_instance_playmode(game->level.musiclost, ALLEGRO_PLAYMODE_ONCE);
+
+
+	game->level.samplecrash = al_load_sample( GetDataFilePath("crash.flac") );
+	PROGRESS;
+
+	game->level.musiccrash = al_create_sample_instance(game->level.samplecrash);
+	al_attach_sample_instance_to_mixer(game->level.musiccrash, game->audio.music);
+	//al_set_sample_instance_gain(game->level.music, 0.75);
+	al_set_sample_instance_playmode(game->level.musiccrash, ALLEGRO_PLAYMODE_ONCE);
+
 
 	PROGRESS;
 	game->level.space =LoadScaledBitmap("space.jpg", game->viewportWidth, game->viewportHeight);
