@@ -23,7 +23,7 @@
  */
 #include <stdio.h>
 #include <math.h>
-#include <getopt.h>
+//#include <getopt.h>
 #include <locale.h>
 #include <signal.h>
 #include "gamestates/menu.h"
@@ -555,7 +555,7 @@ int main(int argc, char **argv){
 	LoadGameState(&game);
 	game.loadstate = GAMESTATE_INTRO;
 
-	int c;
+	/*int c;
 	while ((c = getopt (argc, argv, "l:s:")) != -1)
 		switch (c) {
 			case 'l':
@@ -566,6 +566,7 @@ int main(int argc, char **argv){
 				game.loadstate = optarg[0]-'0';
 				break;
 		}
+	*/
 
 	while(1) {
 		ALLEGRO_EVENT ev;
@@ -635,8 +636,6 @@ int main(int argc, char **argv){
 					game.gamestate = GAMESTATE_LOADING;
 					game.loadstate = GAMESTATE_MENU;
 				}
-			} else if (game.gamestate == GAMESTATE_LEVEL) {
-				//Level_ProcessEvent(&game, &ev);
 			}
 		}
 	}

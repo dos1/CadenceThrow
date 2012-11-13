@@ -69,7 +69,7 @@ int Pause_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 }
 
 void Pause_Preload(struct Game* game) {
-	game->pause.bitmap = NULL;
+	//game->pause.bitmap = NULL;
 	PrintConsole(game,"Pause preloaded.");
 	if (!game->menu.loaded) {
 		PrintConsole(game,"Pause: Preloading GAMESTATE_MENU...");
@@ -82,7 +82,7 @@ void Pause_Load(struct Game* game) {
 	al_set_target_bitmap(fade);
 	al_clear_to_color(al_map_rgb(0,0,0));
 	al_set_target_bitmap(al_get_backbuffer(game->display));
-	game->pause.bitmap = fade;
+	//game->pause.bitmap = fade;
 	ChangeMenuState(game,MENUSTATE_PAUSE);
 	PrintConsole(game,"Game paused.");
 	al_play_sample_instance(game->menu.click);
@@ -100,7 +100,7 @@ void Pause_Draw(struct Game* game) {
 	//al_draw_tinted_bitmap(game->pause.bitmap,al_map_rgba_f(1,1,1,0.75),0,0,0);
 	//al_draw_bitmap(game->pause.bitmap);
 
-	al_draw_filled_rectangle(0, 0, game->viewportWidth, game->viewportHeight, al_map_rgba_f(0,0,0,0.3));
+	al_draw_filled_rectangle(0, 0, game->viewportWidth, game->viewportHeight, al_map_rgba_f(0,0,0,0.4));
 
 	al_draw_text_with_shadow(game->menu.font_title, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.05, ALLEGRO_ALIGN_CENTRE, "Cadence Throw");
 	al_draw_text_with_shadow(game->menu.font_subtitle, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.225, ALLEGRO_ALIGN_CENTRE, "Throwing Wifes is Magic");
@@ -117,8 +117,8 @@ void Pause_Draw(struct Game* game) {
 
 void Pause_Unload_Real(struct Game* game) {
 	PrintConsole(game,"Pause unloaded.");
-	if (game->pause.bitmap) al_destroy_bitmap(game->pause.bitmap);
-	al_destroy_bitmap(game->pause.derpy);
+	//if (game->pause.bitmap) al_destroy_bitmap(game->pause.bitmap);
+	//al_destroy_bitmap(game->pause.derpy);
 }
 
 void Pause_Unload(struct Game* game) {

@@ -179,7 +179,7 @@ void Intro_Draw(struct Game *game) {
 			}
 		} else {
 
-			int color = (power > -1) ? 200 : 50;
+			int color = (power > -1) ? 220 : 50;
 
 			al_draw_filled_rectangle(game->viewportWidth*0.2, game->viewportHeight*0.8, game->viewportWidth*0.8, game->viewportHeight*0.9, al_map_rgb(color/5,color/4,color));
 
@@ -232,7 +232,7 @@ int Intro_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 		Pause_Load(game);
 		//al_seek_video(videos[cur], 3.45);
 	}
-	if (ev->keyboard.keycode == ALLEGRO_KEY_SPACE && cur == 1) {
+	if ((ev->keyboard.keycode == ALLEGRO_KEY_SPACE || ev->keyboard.keycode == ALLEGRO_KEY_ENTER) && cur == 1) {
 		int pwr;
 		if ((pwr = GetCurrentPower()) != -1) {
 			PrintConsole(game, "POWER: %d", pwr);
