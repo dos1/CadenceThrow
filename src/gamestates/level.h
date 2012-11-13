@@ -20,12 +20,12 @@
  */
 #include "../main.h"
 
-void Intro_Draw(struct Game *game);
-void Intro_Logic(struct Game *game);
-void Intro_Preload(struct Game *game, void (*progress)(struct Game*, float));
-void Intro_Unload(struct Game *game);
-void Intro_Load(struct Game *game);
-int Intro_Keydown(struct Game *game, ALLEGRO_EVENT *ev);
-void Intro_Pause(struct Game *game);
-void Intro_Resume(struct Game *game);
-void Intro_Logic(struct Game *game);
+void Level_Draw(struct Game *game);
+void Level_Logic(struct Game *game);
+void Level_Preload(struct Game *game, void (*progress)(struct Game*, float));
+void Level_Unload(struct Game *game);
+void Level_Load(struct Game *game);
+int Level_Keydown(struct Game *game, ALLEGRO_EVENT *ev);
+void Level_Pause(struct Game *game);
+void Level_Resume(struct Game *game);
+void Level_Logic(struct Game *game);

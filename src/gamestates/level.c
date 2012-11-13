@@ -20,7 +20,7 @@
  */
 #include <allegro5/allegro_video.h>
 #include <stdio.h>
-#include "intro.h"
+#include "level.h"
 #include "pause.h"
 
 ALLEGRO_VIDEO *videos[5] = {};
@@ -62,17 +62,17 @@ void NextVideo(struct Game *game, int inc) {
 
 	switch (cur) {
 		case 1:
-			al_set_sample_instance_playing(game->intro.music2,true);
-			al_set_sample_instance_position(game->intro.music2, 50000);
+			al_set_sample_instance_playing(game->level.music2,true);
+			al_set_sample_instance_position(game->level.music2, 50000);
 			break;
 		case 2:
-			al_set_sample_instance_playing(game->intro.music3,true);
+			al_set_sample_instance_playing(game->level.music3,true);
 			break;
 		case 3:
-			al_set_sample_instance_playing(game->intro.music4,true);
+			al_set_sample_instance_playing(game->level.music4,true);
 			break;
 		case 4:
-			al_set_sample_instance_playing(game->intro.music5,true);
+			al_set_sample_instance_playing(game->level.music5,true);
 			break;
 	}
 }
@@ -88,34 +88,34 @@ int GetCurrentPower() {
 	}
 }
 
-void Intro_Logic(struct Game *game) {
+void Level_Logic(struct Game *game) {
 	if (CheckPos(cur)) {
 		if (cur==0) {
 			game->gamestate=GAMESTATE_PAUSE;
-			game->loadstate=GAMESTATE_INTRO;
+			game->loadstate=GAMESTATE_LEVEL;
 			PauseGameState(game);
 			Pause_Load(game);
 			return;
 		}
 		else if (cur==3) {
 			won=true;
-			al_set_sample_instance_position(game->intro.musicwin, 0);
-			al_play_sample_instance(game->intro.musicwin);
+			al_set_sample_instance_position(game->level.musicwin, 0);
+			al_play_sample_instance(game->level.musicwin);
 			cur=255;
 		}
 		else if (cur==4) {
 			lost=true;
-			al_set_sample_instance_position(game->intro.musiclost, 0);
-			al_play_sample_instance(game->intro.musiclost);
-			game->intro.cadencepos = 0;
+			al_set_sample_instance_position(game->level.musiclost, 0);
+			al_play_sample_instance(game->level.musiclost);
+			game->level.cadencepos = 0;
 			cur=255;
 		}
 		else {
 			int inc = 1;
 			if (cur==2) {
 				double p = (0.21+((0.79-0.21)*(power/100.0)));
-				PrintConsole(game, "power status: %d, %f, %f", power, p, 0.7-(game->intro.range/100.0));
-				if (!((p>=0.7-(game->intro.range/100.0)) && p<=0.7)) inc = 2;
+				PrintConsole(game, "power status: %d, %f, %f", power, p, 0.7-(game->level.range/100.0));
+				if (!((p>=0.7-(game->level.range/100.0)) && p<=0.7)) inc = 2;
 			}
 			NextVideo(game,inc);
 		}
@@ -123,35 +123,35 @@ void Intro_Logic(struct Game *game) {
 	//PrintConsole(game, "%d", GetCurrentPower());
 }
 
-void Intro_Pause(struct Game *game) {
+void Level_Pause(struct Game *game) {
 	//al_pause_video(videos[cur], true);
 	paused = true;
 }
 
-void Intro_Resume(struct Game *game) {
+void Level_Resume(struct Game *game) {
 	//al_seek_video(videos[cur], 3.45);
 	//al_pause_video(videos[cur], false);
 	won = false;
 	lost = false;
 	cur = 0;
 	power = -1;
-	al_stop_sample_instance(game->intro.musicwin);
-	al_stop_sample_instance(game->intro.musiclost);
-	al_set_sample_instance_playing(game->intro.music, false);
+	al_stop_sample_instance(game->level.musicwin);
+	al_stop_sample_instance(game->level.musiclost);
+	al_set_sample_instance_playing(game->level.music, false);
 	NextVideo(game, 1);
 	paused = false;
 }
 
-void Intro_Draw(struct Game *game) {
+void Level_Draw(struct Game *game) {
 
 	if (won || lost) {
 		if (bitmap) al_draw_scaled_bitmap(bitmap, 0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), 0, 0, game->viewportWidth, game->viewportHeight, 0);
 		char* text;
 		if (won) text = "You won!";
 		if (lost) { text = "You lost!";
-			al_draw_bitmap(game->intro.space, 0, 0, 0);
-			al_draw_rotated_bitmap(game->intro.cadence, 0, 0, game->viewportWidth*(game->intro.cadencepos/1000.0), game->viewportHeight*(1-(game->intro.cadencepos/1100.0)), game->intro.cadencepos/256.0, 0);
-			game->intro.cadencepos++;
+			al_draw_bitmap(game->level.space, 0, 0, 0);
+			al_draw_rotated_bitmap(game->level.cadence, 0, 0, game->viewportWidth*(game->level.cadencepos/1000.0), game->viewportHeight*(1-(game->level.cadencepos/1100.0)), game->level.cadencepos/256.0, 0);
+			game->level.cadencepos++;
 		}
 		if (!paused) {
 			al_draw_text_with_shadow(game->menu.font_title, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.4, ALLEGRO_ALIGN_CENTRE, text);
@@ -185,7 +185,7 @@ void Intro_Draw(struct Game *game) {
 
 			al_draw_filled_rectangle(game->viewportWidth*0.21, game->viewportHeight*0.81, game->viewportWidth*0.79, game->viewportHeight*0.89, al_map_rgb(255,50,50));
 
-			al_draw_filled_rectangle(game->viewportWidth*(0.7-(game->intro.range/100.0)), game->viewportHeight*0.81, game->viewportWidth*0.7, game->viewportHeight*0.89, al_map_rgb(150,255,50));
+			al_draw_filled_rectangle(game->viewportWidth*(0.7-(game->level.range/100.0)), game->viewportHeight*0.81, game->viewportWidth*0.7, game->viewportHeight*0.89, al_map_rgb(150,255,50));
 
 			al_draw_filled_rectangle(game->viewportWidth*0.21, game->viewportHeight*0.81, game->viewportWidth*(0.21+((0.79-0.21)*(p/100.0))), game->viewportHeight*0.89, al_map_rgb(255,255,150));
 
@@ -199,19 +199,19 @@ void Intro_Draw(struct Game *game) {
 
 }
 
-void Intro_Load(struct Game *game) {
+void Level_Load(struct Game *game) {
 	won = false;
 	lost = false;
 	cur = 0;
 	power = -1;
 	al_start_video(videos[cur], game->audio.voice);
-	al_set_sample_instance_position(game->intro.music, 0);
-	al_play_sample_instance(game->intro.music);
+	al_set_sample_instance_position(game->level.music, 0);
+	al_play_sample_instance(game->level.music);
 	//FadeGameState(game, true);
-	//al_set_audio_stream_playing(game->intro.audiostream, true);
+	//al_set_audio_stream_playing(game->level.audiostream, true);
 }
 
-int Intro_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
+int Level_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 	if (ev->keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
 		return 1;
 	}
@@ -227,7 +227,7 @@ int Intro_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 		videos[3] = al_open_video("data/success.avi");
 		videos[4] = al_open_video("data/fail.avi");
 		game->gamestate=GAMESTATE_PAUSE;
-		game->loadstate=GAMESTATE_INTRO;
+		game->loadstate=GAMESTATE_LEVEL;
 		PauseGameState(game);
 		Pause_Load(game);
 		//al_seek_video(videos[cur], 3.45);
@@ -242,7 +242,7 @@ int Intro_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 	return 0;
 }
 
-void Intro_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
+void Level_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
 	//Menu_Preload(game, progress);
 	PROGRESS_INIT(17);
 	Pause_Preload(game);
@@ -260,69 +260,72 @@ void Intro_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
 	PrintConsole(game,"Opening video DONE");
 	PROGRESS;
 
-	game->intro.sample = al_load_sample( GetDataFilePath("intro.flac") );
+	game->level.sample = al_load_sample( GetDataFilePath("intro.flac") );
 	PROGRESS;
 
-	game->intro.music = al_create_sample_instance(game->intro.sample);
-	al_attach_sample_instance_to_mixer(game->intro.music, game->audio.music);
-	//al_set_sample_instance_gain(game->intro.music, 0.75);
-	al_set_sample_instance_playmode(game->intro.music, ALLEGRO_PLAYMODE_LOOP);
+	game->level.music = al_create_sample_instance(game->level.sample);
+	al_attach_sample_instance_to_mixer(game->level.music, game->audio.music);
+	//al_set_sample_instance_gain(game->level.music, 0.75);
+	al_set_sample_instance_playmode(game->level.music, ALLEGRO_PLAYMODE_LOOP);
 
-	game->intro.sample2 = al_load_sample( GetDataFilePath("prepare.flac") );
+	game->level.sample2 = al_load_sample( GetDataFilePath("prepare.flac") );
 	PROGRESS;
 
-	game->intro.music2 = al_create_sample_instance(game->intro.sample2);
-	al_attach_sample_instance_to_mixer(game->intro.music2, game->audio.music);
-	//al_set_sample_instance_gain(game->intro.music, 0.75);
-	al_set_sample_instance_playmode(game->intro.music2, ALLEGRO_PLAYMODE_ONCE);
+	game->level.music2 = al_create_sample_instance(game->level.sample2);
+	al_attach_sample_instance_to_mixer(game->level.music2, game->audio.music);
+	//al_set_sample_instance_gain(game->level.music, 0.75);
+	al_set_sample_instance_playmode(game->level.music2, ALLEGRO_PLAYMODE_ONCE);
 
-	game->intro.sample3 = al_load_sample( GetDataFilePath("throw.flac") );
+	game->level.sample3 = al_load_sample( GetDataFilePath("throw.flac") );
 	PROGRESS;
 
-	game->intro.music3 = al_create_sample_instance(game->intro.sample3);
-	al_attach_sample_instance_to_mixer(game->intro.music3, game->audio.music);
-	//al_set_sample_instance_gain(game->intro.music, 0.75);
-	al_set_sample_instance_playmode(game->intro.music3, ALLEGRO_PLAYMODE_ONCE);
+	game->level.music3 = al_create_sample_instance(game->level.sample3);
+	al_attach_sample_instance_to_mixer(game->level.music3, game->audio.music);
+	//al_set_sample_instance_gain(game->level.music, 0.75);
+	al_set_sample_instance_playmode(game->level.music3, ALLEGRO_PLAYMODE_ONCE);
 
-	game->intro.sample4 = al_load_sample( GetDataFilePath("success.flac") );
+	game->level.sample4 = al_load_sample( GetDataFilePath("success.flac") );
 	PROGRESS;
 
-	game->intro.music4 = al_create_sample_instance(game->intro.sample4);
-	al_attach_sample_instance_to_mixer(game->intro.music4, game->audio.music);
-	//al_set_sample_instance_gain(game->intro.music, 0.75);
-	al_set_sample_instance_playmode(game->intro.music4, ALLEGRO_PLAYMODE_ONCE);
+	game->level.music4 = al_create_sample_instance(game->level.sample4);
+	al_attach_sample_instance_to_mixer(game->level.music4, game->audio.music);
+	//al_set_sample_instance_gain(game->level.music, 0.75);
+	al_set_sample_instance_playmode(game->level.music4, ALLEGRO_PLAYMODE_ONCE);
 
-	game->intro.sample5 = al_load_sample( GetDataFilePath("fail.flac") );
+	game->level.sample5 = al_load_sample( GetDataFilePath("fail.flac") );
 	PROGRESS;
 
-	game->intro.music5 = al_create_sample_instance(game->intro.sample5);
-	al_attach_sample_instance_to_mixer(game->intro.music5, game->audio.music);
-	//al_set_sample_instance_gain(game->intro.music, 0.75);
-	al_set_sample_instance_playmode(game->intro.music5, ALLEGRO_PLAYMODE_ONCE);
+	game->level.music5 = al_create_sample_instance(game->level.sample5);
+	al_attach_sample_instance_to_mixer(game->level.music5, game->audio.music);
+	//al_set_sample_instance_gain(game->level.music, 0.75);
+	al_set_sample_instance_playmode(game->level.music5, ALLEGRO_PLAYMODE_ONCE);
 
-	game->intro.samplewin = al_load_sample( GetDataFilePath("win.flac") );
+	game->level.samplewin = al_load_sample( GetDataFilePath("win.flac") );
 	PROGRESS;
 
-	game->intro.musicwin = al_create_sample_instance(game->intro.samplewin);
-	al_attach_sample_instance_to_mixer(game->intro.musicwin, game->audio.music);
-	//al_set_sample_instance_gain(game->intro.music, 0.75);
-	al_set_sample_instance_playmode(game->intro.musicwin, ALLEGRO_PLAYMODE_ONCE);
+	game->level.musicwin = al_create_sample_instance(game->level.samplewin);
+	al_attach_sample_instance_to_mixer(game->level.musicwin, game->audio.music);
+	//al_set_sample_instance_gain(game->level.music, 0.75);
+	al_set_sample_instance_playmode(game->level.musicwin, ALLEGRO_PLAYMODE_ONCE);
 
-	game->intro.samplelost = al_load_sample( GetDataFilePath("lost.flac") );
+	game->level.samplelost = al_load_sample( GetDataFilePath("lost.flac") );
 	PROGRESS;
 
-	game->intro.musiclost = al_create_sample_instance(game->intro.samplelost);
-	al_attach_sample_instance_to_mixer(game->intro.musiclost, game->audio.music);
-	al_set_sample_instance_gain(game->intro.musiclost, 0.75);
-	al_set_sample_instance_playmode(game->intro.musiclost, ALLEGRO_PLAYMODE_ONCE);
+	game->level.musiclost = al_create_sample_instance(game->level.samplelost);
+	al_attach_sample_instance_to_mixer(game->level.musiclost, game->audio.music);
+	al_set_sample_instance_gain(game->level.musiclost, 0.75);
+	al_set_sample_instance_playmode(game->level.musiclost, ALLEGRO_PLAYMODE_ONCE);
 
 	PROGRESS;
-	game->intro.space =LoadScaledBitmap("space.jpg", game->viewportWidth, game->viewportHeight);
+	game->level.space =LoadScaledBitmap("space.jpg", game->viewportWidth, game->viewportHeight);
 	PROGRESS;
-	game->intro.cadence = LoadScaledBitmap("cadence.png", game->viewportWidth*0.1, game->viewportWidth*0.1 );
+	game->level.cadence = LoadScaledBitmap("cadence.png", game->viewportWidth*0.1, game->viewportWidth*0.1 );
 	PROGRESS;
 
-	if ((!game->intro.sample) || (!game->intro.sample2) || (!game->intro.sample3) || (!game->intro.sample4) || (!game->intro.sample5)) {
+	game->level.fail = LoadScaledBitmap("fail.png", game->viewportWidth*7, game->viewportHeight*2 );
+	PROGRESS;
+
+	if ((!game->level.sample) || (!game->level.sample2) || (!game->level.sample3) || (!game->level.sample4) || (!game->level.sample5)) {
 		fprintf(stderr, "Audio clip sample not loaded!\n" );
 		exit(-1);
 	}
@@ -331,7 +334,7 @@ void Intro_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
 
 }
 
-void Intro_Unload(struct Game *game) {
+void Level_Unload(struct Game *game) {
 	//FadeGameState(game, false);
 	//al_pause_video(video, true);
 	al_close_video(videos[0]);

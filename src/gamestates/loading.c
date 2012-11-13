@@ -48,6 +48,19 @@ void Progress(struct Game *game, float p) {
 }
 
 void Loading_Draw(struct Game *game) {
+	float fadeloop=0;
+	while (fadeloop<256) {
+		ALLEGRO_EVENT ev;
+		al_wait_for_event(game->event_queue, &ev);
+		if ((ev.type == ALLEGRO_EVENT_TIMER) && (ev.timer.source == game->timer)) {
+			fadeloop+=10;
+		}
+		if (al_is_event_queue_empty(game->event_queue)) {
+			al_draw_tinted_bitmap(game->loading.loading_bitmap,al_map_rgba_f(fadeloop/255.0,fadeloop/255.0,fadeloop/255.0,1),0,0,0);
+			DrawConsole(game);
+			al_flip_display();
+		}
+	}
 
 	al_stop_timer(game->timer);
 

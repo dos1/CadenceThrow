@@ -29,7 +29,7 @@
 #include "gamestates/menu.h"
 #include "gamestates/loading.h"
 #include "gamestates/about.h"
-#include "gamestates/intro.h"
+#include "gamestates/level.h"
 #include "gamestates/pause.h"
 #include "config.h"
 
@@ -158,7 +158,7 @@ void PreloadGameState(struct Game *game, void (*progress)(struct Game*, float)) 
 		PRELOAD_STATE(GAMESTATE_MENU, Menu)
 		PRELOAD_STATE(GAMESTATE_LOADING, Loading)
 		PRELOAD_STATE(GAMESTATE_ABOUT, About)
-		PRELOAD_STATE(GAMESTATE_INTRO, Intro)
+		PRELOAD_STATE(GAMESTATE_LEVEL, Level)
 		default:
 			PrintConsole(game, "ERROR: Attempted to preload unknown gamestate %d!", game->loadstate);
 		break;
@@ -178,7 +178,7 @@ void UnloadGameState(struct Game *game) {
 		UNLOAD_STATE(GAMESTATE_PAUSE, Pause)
 		UNLOAD_STATE(GAMESTATE_LOADING, Loading)
 		UNLOAD_STATE(GAMESTATE_ABOUT, About)
-		UNLOAD_STATE(GAMESTATE_INTRO, Intro)
+		UNLOAD_STATE(GAMESTATE_LEVEL, Level)
 		default:
 			PrintConsole(game, "ERROR: Attempted to unload unknown gamestate %d!", game->gamestate);
 			break;
@@ -193,7 +193,7 @@ void LoadGameState(struct Game *game) {
 		LOAD_STATE(GAMESTATE_MENU, Menu)
 		LOAD_STATE(GAMESTATE_LOADING, Loading)
 		LOAD_STATE(GAMESTATE_ABOUT, About)
-		LOAD_STATE(GAMESTATE_INTRO, Intro)
+		LOAD_STATE(GAMESTATE_LEVEL, Level)
 		default:
 			PrintConsole(game, "ERROR: Attempted to load unknown gamestate %d!", game->loadstate);
 	}
@@ -206,7 +206,7 @@ void DrawGameState(struct Game *game) {
 		DRAW_STATE(GAMESTATE_PAUSE, Pause)
 		DRAW_STATE(GAMESTATE_LOADING, Loading)
 		DRAW_STATE(GAMESTATE_ABOUT, About)
-		DRAW_STATE(GAMESTATE_INTRO, Intro)
+		DRAW_STATE(GAMESTATE_LEVEL, Level)
 		default:
 			game->showconsole = true;
 			al_clear_to_color(al_map_rgb(0,0,0));
@@ -225,7 +225,7 @@ void LogicGameState(struct Game *game) {
 	switch (game->gamestate) {
 		LOGIC_STATE(GAMESTATE_ABOUT, About)
 		LOGIC_STATE(GAMESTATE_MENU, Menu)
-		LOGIC_STATE(GAMESTATE_INTRO, Intro)
+		LOGIC_STATE(GAMESTATE_LEVEL, Level)
 		default:
 			// not every gamestate needs to have logic function
 			break;
@@ -234,7 +234,7 @@ void LogicGameState(struct Game *game) {
 
 void PauseGameState(struct Game *game) {
 	switch (game->loadstate) {
-		PAUSE_STATE(GAMESTATE_INTRO, Intro)
+		PAUSE_STATE(GAMESTATE_LEVEL, Level)
 		default:
 			// not every gamestate needs to have pause function
 			break;
@@ -243,7 +243,7 @@ void PauseGameState(struct Game *game) {
 
 void ResumeGameState(struct Game *game) {
 	switch (game->loadstate) {
-		RESUME_STATE(GAMESTATE_INTRO, Intro)
+		RESUME_STATE(GAMESTATE_LEVEL, Level)
 		default:
 			// not every gamestate needs to have resume function
 			break;
@@ -536,7 +536,7 @@ int main(int argc, char **argv){
 
 	al_flip_display();
 	al_clear_to_color(al_map_rgb(0,0,0));
-	game.timer = al_create_timer(ALLEGRO_BPS_TO_SECS(20)); // logic timer
+	game.timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60)); // logic timer
 	if(!game.timer) {
 		fprintf(stderr, "failed to create timer!\n");
 		return -1;
@@ -553,7 +553,7 @@ int main(int argc, char **argv){
 	game.loadstate = GAMESTATE_LOADING;
 	PreloadGameState(&game, NULL);
 	LoadGameState(&game);
-	game.loadstate = GAMESTATE_INTRO;
+	game.loadstate = GAMESTATE_LEVEL;
 
 	/*int c;
 	while ((c = getopt (argc, argv, "l:s:")) != -1)
@@ -625,7 +625,7 @@ int main(int argc, char **argv){
 				KEYDOWN_STATE(GAMESTATE_MENU, Menu)
 				KEYDOWN_STATE(GAMESTATE_LOADING, Loading)
 				KEYDOWN_STATE(GAMESTATE_ABOUT, About)
-				KEYDOWN_STATE(GAMESTATE_INTRO, Intro)
+				KEYDOWN_STATE(GAMESTATE_LEVEL, Level)
 				else {
 					game.showconsole = true;
 					PrintConsole(&game, "ERROR: Keystroke in unknown (%d) gamestate! (5 sec sleep)", game.gamestate);

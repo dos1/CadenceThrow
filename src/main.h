@@ -46,7 +46,7 @@ enum gamestate_enum {
 	GAMESTATE_PAUSE,
 	GAMESTATE_LOADING,
 	GAMESTATE_ABOUT,
-	GAMESTATE_INTRO
+	GAMESTATE_LEVEL
 };
 
 /* Gamestate structs */
@@ -102,10 +102,10 @@ struct About {
 		int fadeloop; /*!< Loop counter used in fades. */
 };
 
-/*! \brief Resources used by Intro state. */
-struct Intro {
-		ALLEGRO_BITMAP *space; /*!< Background paper bitmap, two pages long. */
-		ALLEGRO_BITMAP *cadence; /*!< Unscaled background paper bitmap. */
+/*! \brief Resources used by Level state. */
+struct Level {
+		ALLEGRO_BITMAP *space;
+		ALLEGRO_BITMAP *cadence;
 		int cadencepos;
 		int range;
 
@@ -159,7 +159,7 @@ struct Game {
 		bool restart; /*!< If true then restart of the game is pending. */
 		struct Menu menu; /*!< Resources used by Menu state. */
 		struct Loading loading; /*!< Resources used by Menu state. */
-		struct Intro intro; /*!< Resources used by Intro state. */
+		struct Level level; /*!< Resources used by Level state. */
 		struct About about; /*!< Resources used by About state. */
 		struct {
 				ALLEGRO_VOICE *v; /*!< Main voice used by the game. */

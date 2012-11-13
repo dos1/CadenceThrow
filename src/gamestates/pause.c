@@ -112,7 +112,7 @@ void Pause_Draw(struct Game* game) {
 	al_draw_text_with_shadow(game->menu.font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.9, ALLEGRO_ALIGN_CENTRE, "Adjust throw power with Space button. But be careful!");
 
 
-	if (al_get_sample_instance_position(game->intro.music)<100000) al_set_sample_instance_position(game->intro.music, 150000); // UGLY AS FUUUUUUUUUUUUCK
+	if (al_get_sample_instance_position(game->level.music)<100000) al_set_sample_instance_position(game->level.music, 150000); // UGLY AS FUUUUUUUUUUUUCK
 }
 
 void Pause_Unload_Real(struct Game* game) {

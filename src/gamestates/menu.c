@@ -231,7 +231,7 @@ int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 						//game->pause.bitmap = NULL;
 						ResumeGameState(game);
 						game->gamestate = game->loadstate;
-						game->intro.range = 20;
+						game->level.range = 20;
 						break;
 					case 1:
 						PrintConsole(game,"Game resumed.");
@@ -239,7 +239,7 @@ int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 						//game->pause.bitmap = NULL;
 						ResumeGameState(game);
 						game->gamestate = game->loadstate;
-						game->intro.range = 12;
+						game->level.range = 12;
 						break;
 					case 2:
 						PrintConsole(game,"Game resumed.");
@@ -247,7 +247,7 @@ int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 						//game->pause.bitmap = NULL;
 						ResumeGameState(game);
 						game->gamestate = game->loadstate;
-						game->intro.range = 6;
+						game->level.range = 6;
 						break;
 					case 3:
 						ChangeMenuState(game,MENUSTATE_PAUSE);
@@ -376,9 +376,10 @@ int Menu_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 				ChangeMenuState(game,MENUSTATE_PAUSE);
 				break;
 			case MENUSTATE_PAUSE:
-				PrintConsole(game,"Game resumed.");
+				//PrintConsole(game,"Game resumed.");
 				//al_destroy_bitmap(game->pause.bitmap);
 				//game->pause.bitmap = NULL;
+				return 1;
 				ResumeGameState(game);
 				game->gamestate = game->loadstate;
 				break;

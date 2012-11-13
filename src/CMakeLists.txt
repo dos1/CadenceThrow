@@ -3,7 +3,7 @@ SET(SRC_LIST
   allegro_utils.c
   config.c
   gamestates/about.c
-  gamestates/intro.c
+	gamestates/level.c
   gamestates/loading.c
   gamestates/menu.c
   gamestates/pause.c
