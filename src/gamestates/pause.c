@@ -110,7 +110,7 @@ void Pause_Draw(struct Game* game) {
 //	al_draw_filled_rectangle(0, game->viewportHeight*0.8, game->viewportWidth, game->viewportHeight, al_map_rgba_f(0,0,0,0.3));
 
 	al_draw_text_with_shadow(game->menu.font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.82, ALLEGRO_ALIGN_CENTRE, "Your task is to save Spike by throwing your wife.");
-	al_draw_text_with_shadow(game->menu.font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.9, ALLEGRO_ALIGN_CENTRE, "Adjust throw power with Space button. But be careful!");
+	al_draw_text_with_shadow(game->menu.font, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.9, ALLEGRO_ALIGN_CENTRE, "Adjust throw power with Space button. Be careful!");
 
 
 	if (al_get_sample_instance_position(game->level.music)<100000) al_set_sample_instance_position(game->level.music, 150000); // UGLY AS FUUUUUUUUUUUUCK

@@ -105,7 +105,7 @@ void Menu_Logic(struct Game *game) {
 }
 
 void Menu_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
-	PROGRESS_INIT(6);
+	PROGRESS_INIT(5);
 
 	game->menu.options.fullscreen = game->fullscreen;
 	game->menu.options.audio = game->music;
@@ -155,7 +155,6 @@ void Menu_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
 		fprintf(stderr, "Audio clip sample#3 not loaded!\n" );
 		exit(-1);
 	}
-	PROGRESS;
 	PROGRESS;
 }
 

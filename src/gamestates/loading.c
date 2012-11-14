@@ -62,6 +62,8 @@ void Loading_Draw(struct Game *game) {
 		}
 	}
 
+	al_draw_bitmap(game->loading.loading_bitmap,0,0,0);
+
 	al_stop_timer(game->timer);
 
 	PreloadGameState(game, &Progress);
@@ -88,9 +90,11 @@ void Loading_Draw(struct Game *game) {
 	}
 	al_clear_to_color(al_map_rgb(0,0,0));*/
 	al_draw_bitmap(game->loading.image4,0,0,0);
-	DrawConsole(game);
-	al_flip_display();
+	//DrawConsole(game);
+	//al_flip_display();
 	LoadGameState(game);
+	al_draw_bitmap(game->loading.image4,0,0,0);
+
 }
 
 void Loading_Load(struct Game *game) {
