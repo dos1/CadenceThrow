@@ -28,9 +28,10 @@ int Pause_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 	if ((game->menu.menustate==MENUSTATE_OPTIONS) && ((ev->keyboard.keycode==ALLEGRO_KEY_ESCAPE) || ((ev->keyboard.keycode==ALLEGRO_KEY_ENTER) && (game->menu.selected==3)))) {
 		al_play_sample_instance(game->menu.click);
 		ChangeMenuState(game,MENUSTATE_PAUSE);
-	} else if ((game->menu.menustate==MENUSTATE_VIDEO) && ((ev->keyboard.keycode==ALLEGRO_KEY_ESCAPE) || ((ev->keyboard.keycode==ALLEGRO_KEY_ENTER) && (game->menu.selected==3)))) {
+	} /*else if ((game->menu.menustate==MENUSTATE_VIDEO) && ((ev->keyboard.keycode==ALLEGRO_KEY_ESCAPE) || ((ev->keyboard.keycode==ALLEGRO_KEY_ENTER) && (game->menu.selected==3)))) {
 		al_play_sample_instance(game->menu.click);
 		ChangeMenuState(game,MENUSTATE_OPTIONS);
+
 		if (game->menu.options.fullscreen!=game->fullscreen) {
 			al_toggle_display_flag(game->display, ALLEGRO_FULLSCREEN_WINDOW, game->menu.options.fullscreen);
 			al_clear_to_color(al_map_rgb(0,0,0));
@@ -64,7 +65,7 @@ int Pause_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 			Pause_Preload(game);
 			Pause_Load(game);
 		}
-	} else return Menu_Keydown(game, ev);
+	} */ else return Menu_Keydown(game, ev);
 	return 0;
 }
 

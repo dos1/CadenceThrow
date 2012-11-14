@@ -25,7 +25,7 @@
 #include "pause.h"
 
 ALLEGRO_VIDEO *videos[5] = {};
-int durations[5] = {3, 5, 1, 10, 1};
+int durations[5] = {3, 4, 1, 10, 1};
 ALLEGRO_BITMAP *bitmap = NULL;
 
 double oldpos;
@@ -279,7 +279,7 @@ int Level_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 
 void Level_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
 	//Menu_Preload(game, progress);
-	PROGRESS_INIT(17);
+	PROGRESS_INIT(19);
 	Pause_Preload(game);
 	PROGRESS;
 	PrintConsole(game,"Opening video");
@@ -387,5 +387,24 @@ void Level_Unload(struct Game *game) {
 	al_close_video(videos[2]);
 	al_close_video(videos[3]);
 	al_close_video(videos[4]);
+	al_destroy_bitmap(game->level.fail);
+	al_destroy_bitmap(game->level.cadence);
+	al_destroy_bitmap(game->level.space);
+	al_destroy_sample_instance(game->level.music);
+	al_destroy_sample_instance(game->level.music2);
+	al_destroy_sample_instance(game->level.music3);
+	al_destroy_sample_instance(game->level.music4);
+	al_destroy_sample_instance(game->level.music5);
+	al_destroy_sample_instance(game->level.musiccrash);
+	al_destroy_sample_instance(game->level.musiclost);
+	al_destroy_sample_instance(game->level.musicwin);
+	al_destroy_sample(game->level.sample);
+	al_destroy_sample(game->level.sample2);
+	al_destroy_sample(game->level.sample3);
+	al_destroy_sample(game->level.sample4);
+	al_destroy_sample(game->level.sample5);
+	al_destroy_sample(game->level.samplecrash);
+	al_destroy_sample(game->level.samplelost);
+	al_destroy_sample(game->level.samplewin);
 	//video=NULL;
 }

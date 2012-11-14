@@ -431,7 +431,7 @@ int main(int argc, char **argv){
 	struct Game game;
 
 	game.fullscreen = atoi(GetConfigOptionDefault("SuperDerpy", "fullscreen", "0"));
-	game.music = atoi(GetConfigOptionDefault("SuperDerpy", "music", "7"));
+	game.music = atoi(GetConfigOptionDefault("SuperDerpy", "music", "10"));
 	game.voice = atoi(GetConfigOptionDefault("SuperDerpy", "voice", "10"));
 	game.fx = atoi(GetConfigOptionDefault("SuperDerpy", "fx", "10"));
 	game.debug = atoi(GetConfigOptionDefault("SuperDerpy", "debug", "0"));
@@ -524,8 +524,8 @@ int main(int argc, char **argv){
 	al_attach_mixer_to_mixer(game.audio.fx, game.audio.mixer);
 	al_attach_mixer_to_mixer(game.audio.music, game.audio.mixer);
 	al_attach_mixer_to_mixer(game.audio.voice, game.audio.mixer);
-	al_set_mixer_gain(game.audio.fx, game.fx/10.0);
-	al_set_mixer_gain(game.audio.music, game.music/10.0);
+	//al_set_mixer_gain(game.audio.fx, game.fx/10.0);
+	al_set_mixer_gain(game.audio.mixer, game.music/10.0);
 	//al_set_mixer_gain(game.audio.voice, game.voice/10.0);
 	al_set_mixer_gain(game.audio.voice, 0);
 
@@ -663,11 +663,13 @@ int main(int argc, char **argv){
 	if (game.restart) {
 		al_shutdown_ttf_addon();
 		al_shutdown_font_addon();
-#ifdef ALLEGRO_MACOSX
+		al_uninstall_system();
+		execl(argv[0], argv[0], NULL); // nice workaround for memory leaking issues... oops, did I say that aloud? :/
+/*#ifdef ALLEGRO_MACOSX
 		return _al_mangled_main(argc, argv);
 #else
 		return main(argc, argv);
-#endif
+#endif*/
 	}
 	return 0;
 }

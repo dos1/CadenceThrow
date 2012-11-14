@@ -55,10 +55,7 @@ enum gamestate_enum {
 enum menustate_enum {
 	MENUSTATE_GAME,
 	MENUSTATE_OPTIONS,
-	MENUSTATE_CONTROLS,
-	MENUSTATE_VIDEO,
-	MENUSTATE_PAUSE,
-	MENUSTATE_AUDIO
+	MENUSTATE_PAUSE
 };
 
 /*! \brief Resources used by Menu state. */
@@ -74,9 +71,7 @@ struct Menu {
 		bool loaded; /*!< True if Menu state has been already loaded. */
 		struct {
 				bool fullscreen;
-				int fps;
-				int width;
-				int height;
+				bool audio;
 		} options; /*!< Options which can be changed in menu. */
 };
 
