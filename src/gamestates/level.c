@@ -25,7 +25,7 @@
 #include "pause.h"
 
 ALLEGRO_VIDEO *videos[5] = {};
-int durations[5] = {3, 4, 1, 10, 1};
+int durations[5] = {3, 5, 1, 10, 1};
 ALLEGRO_BITMAP *bitmap = NULL;
 
 double oldpos;

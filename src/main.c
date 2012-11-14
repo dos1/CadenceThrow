@@ -653,7 +653,7 @@ int main(int argc, char **argv){
 	al_rest(0.1);
 	al_destroy_timer(game.timer);
 	Shared_Unload(&game);
-	al_destroy_display(game.display);
+	//al_destroy_display(game.display);
 	al_destroy_event_queue(game.event_queue);
 	al_destroy_mixer(game.audio.fx);
 	al_destroy_mixer(game.audio.music);
