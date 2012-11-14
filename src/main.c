@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <math.h>
 //#include <getopt.h>
+#include <unistd.h>
 #include <locale.h>
 #include <signal.h>
 #include "gamestates/menu.h"

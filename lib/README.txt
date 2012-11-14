@@ -18,11 +18,16 @@ This is the list of DLLs included with official release:
  * allegro_acodec-5.1.dll
  * allegro_font-5.1.dll
  * allegro_primitives-5.1.dll
+ * allegro_video-5.1.dll
  * libgcc_s_dw2-1.dll
  * libstdc++-6.dll
  * freetype6.dll
  * libogg-0.dll
  * zlib1.dll
+ * avformat-54.dll
+ * swscale-2.dll
+ * avutil-52.dll
+ * avcodec-54.dll
 
 As there's no standard way of installing packages in Windows, including those
 files may be a good idea even when building just for yourself, unless you
@@ -40,6 +45,8 @@ This is the list of shared libraries included with official release:
  * liballegro_image.so.5.1
  * liballegro_primitives.so.5.1
  * liballegro_ttf.so.5.1
+
+TODO: Update GNU/Linux release
 
 Please note that while Windows version contains also DLLs with dependences from
 Allegro, on GNU/Linux there's no need to provide them, as FreeType, libogg or

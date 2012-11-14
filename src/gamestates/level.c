@@ -256,11 +256,11 @@ int Level_Keydown(struct Game *game, ALLEGRO_EVENT *ev) {
 		al_close_video(videos[2]);
 		al_close_video(videos[3]);
 		al_close_video(videos[4]);
-		videos[0] = al_open_video("data/intro.avi");
-		videos[1] = al_open_video("data/prepare.avi");
-		videos[2] = al_open_video("data/throw.avi");
-		videos[3] = al_open_video("data/success.avi");
-		videos[4] = al_open_video("data/fail.avi");
+        videos[0] = al_open_video(GetDataFilePath("intro.avi"));
+        videos[1] = al_open_video(GetDataFilePath("prepare.avi"));
+        videos[2] = al_open_video(GetDataFilePath("throw.avi"));
+        videos[3] = al_open_video(GetDataFilePath("success.avi"));
+        videos[4] = al_open_video(GetDataFilePath("fail.avi"));
 		game->gamestate=GAMESTATE_PAUSE;
 		game->loadstate=GAMESTATE_LEVEL;
 		PauseGameState(game);
@@ -283,15 +283,15 @@ void Level_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
 	Pause_Preload(game);
 	PROGRESS;
 	PrintConsole(game,"Opening video");
-	videos[0] = al_open_video("data/intro.avi");
+    videos[0] = al_open_video(GetDataFilePath("intro.avi"));
 	PROGRESS;
-	videos[1] = al_open_video("data/prepare.avi");
+    videos[1] = al_open_video(GetDataFilePath("prepare.avi"));
 	PROGRESS;
-	videos[2] = al_open_video("data/throw.avi");
+    videos[2] = al_open_video(GetDataFilePath("throw.avi"));
 	PROGRESS;
-	videos[3] = al_open_video("data/success.avi");
+    videos[3] = al_open_video(GetDataFilePath("success.avi"));
 	PROGRESS;
-	videos[4] = al_open_video("data/fail.avi");
+    videos[4] = al_open_video(GetDataFilePath("fail.avi"));
 	PrintConsole(game,"Opening video DONE");
 	PROGRESS;
 
