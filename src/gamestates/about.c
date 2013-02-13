@@ -23,8 +23,8 @@
 #include "about.h"
 
 void About_Logic(struct Game *game) {
-	if (al_get_sample_instance_position(game->about.music)<700000) { return; }
-	if (game->about.fadeloop>=0) {
+	//if (al_get_sample_instance_position(game->about.music)<700000) { return; }
+	/*if (game->about.fadeloop>=0) {
 		if (game->about.fadeloop==0) PrintConsole(game, "Fade in");
 		game->about.fadeloop+=5;
 		if (game->about.fadeloop>=256) {
@@ -33,7 +33,7 @@ void About_Logic(struct Game *game) {
 		}
 		return;
 	}
-	game->about.x+=0.00025;
+	game->about.x+=0.00025;*/
 }
 
 void About_Draw(struct Game *game) {

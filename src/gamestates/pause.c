@@ -104,7 +104,7 @@ void Pause_Draw(struct Game* game) {
 	al_draw_filled_rectangle(0, 0, game->viewportWidth, game->viewportHeight, al_map_rgba_f(0,0,0,0.4));
 
 	al_draw_text_with_shadow(game->menu.font_title, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.05, ALLEGRO_ALIGN_CENTRE, "Cadence Throw");
-	al_draw_text_with_shadow(game->menu.font_subtitle, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.225, ALLEGRO_ALIGN_CENTRE, "Throwing Wifes is Magic");
+	al_draw_text_with_shadow(game->menu.font_subtitle, al_map_rgb(255,255,255), game->viewportWidth*0.5, game->viewportHeight*0.225, ALLEGRO_ALIGN_CENTRE, "Throwing Wives is Magic");
 	DrawMenuState(game);
 
 //	al_draw_filled_rectangle(0, game->viewportHeight*0.8, game->viewportWidth, game->viewportHeight, al_map_rgba_f(0,0,0,0.3));

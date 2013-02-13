@@ -363,7 +363,7 @@ void SetupViewport(struct Game *game) {
 	game->viewportWidth = al_get_display_width(game->display);
 	game->viewportHeight = al_get_display_height(game->display);
 	if (atoi(GetConfigOptionDefault("SuperDerpy", "letterbox", "1"))) {
-		float const aspectRatio = (float)800 / (float)500;
+		float const aspectRatio = (float)1920 / (float)1080;
 		int clipWidth = game->viewportWidth, clipHeight = game->viewportWidth / aspectRatio;
 		int clipX = 0, clipY = (game->viewportHeight - clipHeight) / 2;
 		if (clipY <= 0) {
@@ -568,17 +568,19 @@ int main(int argc, char **argv){
 				break;
 		}
 	*/
-
+	bool redraw=false;
 	while(1) {
 		ALLEGRO_EVENT ev;
-		if (al_is_event_queue_empty(game.event_queue)) {
+		if (redraw && al_is_event_queue_empty(game.event_queue)) {
 			DrawGameState(&game);
 			DrawConsole(&game);
 			al_flip_display();
+			redraw=false;
 		} else {
 			al_wait_for_event(game.event_queue, &ev);
 			if ((ev.type == ALLEGRO_EVENT_TIMER) && (ev.timer.source == game.timer)) {
 				LogicGameState(&game);
+				redraw=true;
 			}
 			else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 				break;
