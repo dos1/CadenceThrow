@@ -1,1 +1,4 @@
 - memory leaks
+- crash on too high
+- lag on too low
+- port to libsuperderpy
