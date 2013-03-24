@@ -172,7 +172,7 @@ void Level_Draw(struct Game *game) {
 				al_draw_bitmap(game->level.space, 0, 0, 0);
 				al_draw_rotated_bitmap(game->level.cadence, 0, 0, game->viewportWidth*(game->level.cadencepos/1000.0), game->viewportHeight*(1-(game->level.cadencepos/1100.0)), game->level.cadencepos/256.0, 0);
 			} else {
-				al_draw_bitmap_region(game->level.fail,game->viewportWidth*(int)fmod(game->level.cadencepos/5,7),game->viewportHeight*(((int)(game->level.cadencepos/5/7))%2),game->viewportWidth, game->viewportHeight,0,0,0);
+				al_draw_scaled_bitmap(game->level.fail,500*(int)fmod(game->level.cadencepos/5,7),337*(((int)(game->level.cadencepos/5/7))%2),500,337,0,0,game->viewportWidth, game->viewportHeight,0);
 				if (game->level.cadencepos/5 >= 13) {
 					game->level.cadencepos = 13*5;
 					if (!crashed) {
@@ -367,7 +367,7 @@ void Level_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
 	game->level.cadence = LoadScaledBitmap("cadence.png", game->viewportWidth*0.1, game->viewportWidth*0.1 );
 	PROGRESS;
 
-	game->level.fail = LoadScaledBitmap("fail.png", game->viewportWidth*7, game->viewportHeight*2 );
+	game->level.fail = LoadScaledBitmap("fail.png", 3500, 674); //game->viewportWidth*7, game->viewportHeight*2 );
 	PROGRESS;
 
 	if ((!game->level.sample) || (!game->level.sample2) || (!game->level.sample3) || (!game->level.sample4) || (!game->level.sample5)) {
