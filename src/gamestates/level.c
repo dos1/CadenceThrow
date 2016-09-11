@@ -42,7 +42,7 @@ bool CheckPos(int id) {
 	if (id>10) return false;
 	float pos = al_get_video_position(videos[id], 0);
 	if (pos < durations[id]) return false;
-	if (al_is_video_paused(videos[id])) return false;
+	if (!al_is_video_playing(videos[id])) return false;
 	if (pos==0) return false;
 
 	if (pos==oldpos) {
@@ -61,7 +61,7 @@ void NextVideo(struct Game *game, int inc) {
 	//al_close_video(videos[cur]);
 	cur+=inc;
 	al_start_video(videos[cur], game->audio.voice);
-	al_pause_video(videos[cur], false);
+	al_set_video_playing(videos[cur], true);
 
 	switch (cur) {
 		case 1:
@@ -138,13 +138,13 @@ void Level_Logic(struct Game *game) {
 }
 
 void Level_Pause(struct Game *game) {
-	//al_pause_video(videos[cur], true);
+	//al_set_video_playing(videos[cur], false);
 	paused = true;
 }
 
 void Level_Resume(struct Game *game) {
 	//al_seek_video(videos[cur], 3.45);
-	//al_pause_video(videos[cur], false);
+	//al_set_video_playing(videos[cur], true);
 	won = false;
 	lost = false;
 	cur = 0;
@@ -381,7 +381,7 @@ void Level_Preload(struct Game *game, void (*progress)(struct Game*, float)) {
 
 void Level_Unload(struct Game *game) {
 	//FadeGameState(game, false);
-	//al_pause_video(video, true);
+	//al_set_video_playing(video, false);
 	al_close_video(videos[0]);
 	al_close_video(videos[1]);
 	al_close_video(videos[2]);
